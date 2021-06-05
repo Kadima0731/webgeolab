@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geolab.mapper.SandLoadTestRecordsMapper">
+    <resultMap type="com.geolab.pojo.sand.SandLoadTestRecords" id="SandRecordsMap" >
+        <id column="ID" property="ID"></id>
+        <result column="Country" property="Country"></result>
+        <result column="Site" property="Site"></result>
+        <result column="Pile ID" property="PileID"></result>
+        <result column="Data From" property="DataFrom"></result>
+        <result column="Soil Type" property="SoilType"></result>
+        <result column="Water Table Depth (m)" property="WaterTableDepth"></result>
+        <result column="Type of Cone Penetrometer Testing" property="TypeOfConePeneTest"></result>
+        <result column="PileType" property="PileType"></result>
+        <result column="PileShape" property="PileShape"></result>
+        <result column="PileMaterial" property="PileMaterial"></result>
+        <result column="Length (m)" property="Length"></result>
+        <result column="Outer Diameter (mm)" property="OuterDiameter"></result>
+        <result column="Wall Thickness (mm)" property="WallThickness"></result>
+        <result column="Installation method" property="InstallationMethod"></result>
+        <result column="Set Up Time (day)" property="SetUpTime"></result>
+        <result column="TestType" property="TestType"></result>
+        <result column="Qm" property="Qm"></result>
+        <result column="Qs" property="Qs"></result>
+        <result column="Qb" property="Qb"></result>
+        <result column="API Qc" property="APIQc"></result>
+        <result column="API Qc/Qm" property="APIRatio"></result>
+        <result column="UWA Qc" property="UWAQc"></result>
+        <result column="UWA Qc/Qm" property="UWARatio"></result>
+        <result column="ICP Qc" property="ICPQc"></result>
+        <result column="ICP Qc/Qm" property="ICPRatio"></result>
+        <result column="Fugro Qc" property="FugroQc"></result>
+        <result column="Fugro Qc/Qm" property="FugroRatio"></result>
+        <result column="NGI Qc" property="NGIQc"></result>
+        <result column="NGI Qc/Qm" property="NGIRatio"></result>
+        <result column="IFR" property="IFR"></result>
+        <result column="Pile-soil Interface Friction Angle" property="InterfaceAngle"></result>
+        <result column="Soil Unit Weight" property="SoilUnitWeight"></result>
+        <result column="Reference" property="Reference"></result>
+        <result column="Interface Friction Angle Note" property="InterfaceAngleNote"></result>
+        <result column="Soil Unit Weight Note" property="SoilUnitWeightNote"></result>
+        <result column="qc Note" property="qcNote"></result>
+        <result column="Load Note" property="LoadNote"></result>
+    </resultMap>
+    
+    <select id="selectSandAllRecords" resultMap="SandRecordsMap">
+        select * from [SandLoadTestRecords]
+    </select>
+
+    <select id="selectSandById" resultMap="SandRecordsMap">
+        select * from [SandLoadTestRecords] where ID = #{ID}
+    </select>
+
+    <select id="selectSandLike" parameterType="string" resultMap="SandRecordsMap">
+        select * from [SandLoadTestRecords]
+        <where>
+            <if test="keyword != null">
+                Country like '%${keyword}%'
+            </if>
+            <if test="keyword != null">
+                or Site like '%${keyword}%'
+            </if>
+            <if test="keyword != null">
+                or [Pile ID] like '%${keyword}%'
+            </if>
+            <if test="keyword != null">
+                or [Data From] like '%${keyword}%'
+            </if>
+            <if test="keyword != null">
+                or TestType like '%${keyword}%'
+            </if>
+            <if test="keyword != null">
+                or PileType like '%${keyword}%'
+            </if>
+            <if test="keyword != null">
+                or PileShape like '%${keyword}%'
+            </if>
+            <if test="keyword != null">
+                or PileMaterial like '%${keyword}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="countSandRecords" resultType="java.lang.Integer">
+        select count(*) from [SandLoadTestRecords]
+    </select>
+</mapper>
